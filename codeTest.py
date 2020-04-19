@@ -2,7 +2,7 @@ import pickle
 
 
 def readtoTestingFacilityTest():
-    filename = "~/toTestingFacility.pkl"
+    filename = "/home/ec2-user/toTestingFacility.pkl"
     data = pickle.load(open(filename,"rb"))
     print(data)
 
