@@ -14,7 +14,7 @@ def readtoTestingFacilityTest():
     	try:
             print("running1")
             print(file.path)
-            curFiledata = pickle.load(file.path,"rb")
+            curFiledata = pickle.load(open(file.path,"rb"))
             print("rinning2")
             config = curFiledata["config"]
             winners = curFiledata["winners"]
