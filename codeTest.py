@@ -4,10 +4,10 @@ import os
 
 
 def readtoTestingFacilityTest():
-	filename = "testingFacilitySnakeData.pkl"
+    filename = "testingFacilitySnakeData.pkl"
     data = []
     files = os.scandir("/home/ec2-user/forexNEAT-testing-factory/toTestingFactory")
-    
+
     for file in files:
     	if file.is_file() == False:
     		continue
@@ -34,4 +34,4 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+    main()
