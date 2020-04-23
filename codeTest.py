@@ -5,7 +5,7 @@ import os
 
 def readtoTestingFacilityTest():
 	filename = "testingFacilitySnakeData.pkl"
-	data = []
+    data = []
     files = os.scandir("/home/ec2-user/forexNEAT-testing-factory/toTestingFactory")
     
     for file in files:
