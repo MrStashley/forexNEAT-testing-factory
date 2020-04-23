@@ -13,18 +13,18 @@ def readtoTestingFacilityTest():
     		continue
     	try:
             print("running1")
-    		curFiledata = pickle.load(file.path,"rb")
+            curFiledata = pickle.load(file.path,"rb")
             print("rinning2")
-    		config = curFiledata["config"]
-    		winners = curFiledata["winners"]
+            config = curFiledata["config"]
+            winners = curFiledata["winners"]
             print("running 3")
-    		for winner in winners:
+            for winner in winners:
                 print("running4")
-    			data.append({
-    				"id": winner["id"],
-    				"genome": winner[genome],
-    				"config": config
-    			})
+            	data.append({
+            		"id": winner["id"],
+            		"genome": winner[genome],
+            		"config": config
+            	})
     	except:
     		print("an error has occured with " + str(file.path))
 
