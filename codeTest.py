@@ -13,6 +13,7 @@ def readtoTestingFacilityTest():
     		continue
     	try:
             print("running1")
+            print(file.path)
             curFiledata = pickle.load(file.path,"rb")
             print("rinning2")
             config = curFiledata["config"]
