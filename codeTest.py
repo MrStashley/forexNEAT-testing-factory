@@ -4,6 +4,7 @@ import os
 
 
 def readtoTestingFacilityTest():
+	filename = "testingFacilitySnakeData.pkl"
 	data = []
     files = os.scandir("/home/ec2-user/")
 
@@ -24,8 +25,9 @@ def readtoTestingFacilityTest():
     		print("an error has occured with " + str(file.path))
 
     	os.remove(file.path)
-    	
+
     print(data)
+    pickle.dump(data, open("testingFacilitySnakeData.pkl", "wb"))
 
 def main():
     readtoTestingFacilityTest()
