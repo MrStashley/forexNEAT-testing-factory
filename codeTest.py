@@ -20,11 +20,11 @@ def readtoTestingFacilityTest():
             print("running 3")
             for winner in winners:
                 print("running4")
-            	data.append({
-            		"id": winner["id"],
-            		"genome": winner[genome],
-            		"config": config
-            	})
+                data.append({
+                	"id": winner["id"],
+                	"genome": winner[genome],
+                	"config": config
+                })
     	except:
     		print("an error has occured with " + str(file.path))
 
