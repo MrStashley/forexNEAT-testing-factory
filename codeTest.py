@@ -11,23 +11,15 @@ def readtoTestingFacilityTest():
     for file in files:
     	if file.is_file() == False:
     		continue
-    	try:
-            print("running1")
-            print(file.path)
-            curFiledata = pickle.load(open(file.path,"rb"))
-            print("rinning2")
-            config = curFiledata["config"]
-            winners = curFiledata["winners"]
-            print("running 3")
-            for winner in winners:
-                print("running4")
-                data.append({
-                	"id": winner["id"],
-                	"genome": winner[genome],
-                	"config": config
-                })
-    	except:
-    		print("an error has occured with " + str(file.path))
+        curFiledata = pickle.load(open(file.path,"rb"))
+        config = curFiledata["config"]
+        winners = curFiledata["winners"]
+        for winner in winners:
+            data.append({
+            	"id": winner["id"],
+            	"genome": winner["genome"],
+            	"config": config
+            })
 
     	os.remove(file.path)
 
