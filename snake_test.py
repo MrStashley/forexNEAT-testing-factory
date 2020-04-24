@@ -74,6 +74,7 @@ def test_snake(snake):
     total_max_drawdown = 0
     top_max_drawdown = 0
     bottom_max_drawdown = 3000
+    balance-equity_disparity_total = 0
     for result, genome, config in results:
         fitness = result["fitness"];
         balance = result["balance"];
@@ -83,6 +84,9 @@ def test_snake(snake):
         totalLoss = result["totalLoss"]
         totalProfit = result["totalProfit"]
         max_drawdown = result["max_drawdown"]
+
+        balance-equity_disparity = equity-balance
+        balance-equity_disparity_total += balance-equity_disparity
 
         total_max_drawdown += max_drawdown
 
@@ -135,6 +139,8 @@ def test_snake(snake):
 
     average_max_drawdown = total_max_drawdown / total
 
+    average_balance-equity_disparity = balance-equity_disparity_total / total
+
     snakeData = (id,genome,config)
     try:
         testedSnakes = pickle.load(open("testedSnakeData.pkl", "rb"))
@@ -145,11 +151,11 @@ def test_snake(snake):
 
     sendUpdateToServer({
         "id": id,
-        "top_fitness": top_fitness,
-        "bottom_fitness": bottom_fitness,
-        "average_fitness": average_fitness,
-        "positive_fitness_decimal": positive_fitness_decimal,
-        "positive_fitness_count": positive_fitness_count,
+        "top_money_made": top_fitness,
+        "bottom_money_made": bottom_fitness,
+        "average_money_made": average_fitness,
+        "positive_money_made_decimal": positive_fitness_decimal,
+        "positive_money_made_count": positive_fitness_count,
         "failed_count": failed_count,
         "average_total_loss": average_total_loss,
         "average_total_profit": average_total_profit,
@@ -163,6 +169,7 @@ def test_snake(snake):
         "average_max_drawdown": average_max_drawdown,
         "top_max_drawdown": top_max_drawdown,
         "bottom_max_drawdown": bottom_max_drawdown,
+        "average_balance-equity_disparity": average_balance-equity_disparity,
         "total": total
     })
 

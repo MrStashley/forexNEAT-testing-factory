@@ -93,7 +93,6 @@ def getDateAhead(year,month,day,hour,minute, dayInterval):
 def getRandomDate(dayInterval):
     #returns a random date string formatted to rfc 3339 standard
     # as well as the date dayInterval days ahead
-    dayInterval = 15;
     random.seed(time.time());
     year = "20" + str(random.randrange(10,20,1));
     month = str(random.randrange(1,13,1));
@@ -142,7 +141,7 @@ class marketData(object):
     };
 
     def __init__(self):
-        self.dayInterval = 4 # the generation will run this many days
+        self.dayInterval = 20 # the generation will run this many days
         self.access_token = open("oanda_api_key.txt", "r").readline()[:-1];
         self.instrument = "EUR_USD";
         self.client = oandapyV20.API(access_token=self.access_token);
