@@ -320,9 +320,10 @@ class trainingMarketAPI(object):
         "secondData": None,
         "dailyData": None,
     }
-    @classmethod
-    def getSecondDataArray(cls, spread = 0):
-        toReturn = [(float(point["o"])-spread) for point in cls.marketData["secondData"]]
+
+
+    def getSecondDataArray(self, spread = 0):
+        toReturn = [(float(point["o"])-spread) for point in self.marketData["secondData"]]
         return toReturn
 
     def initMarketData(self,marketDataObject):
