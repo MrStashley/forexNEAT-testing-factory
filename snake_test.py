@@ -92,6 +92,7 @@ def test_snake(snake):
     pickle.dump(testedSnakes, open("testedSnakeData.pkl","wb"))
 
     sendUpdateToServer({
+        "id": id,
         "top_fitness": top_fitness,
         "bottom_fitness": bottom_fitness,
         "average_fitness": average_fitness,
