@@ -1,5 +1,6 @@
 import neat
 from multiprocessing import Process, Pool
+from marketAPI import trainingMarketAPI
 
 class snakeNN(object):
 
