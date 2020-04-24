@@ -85,11 +85,11 @@ def test_snake(snake):
 
     snakeData = (id,genome,config)
     try:
-        testedSnakes = pickle.load(open("testedSnakes/testedSnakeData.pkl", "rb"))
+        testedSnakes = pickle.load(open( os.getcwd() + "/testedSnakes/testedSnakeData.pkl", "rb"))
     except:
         testedSnakes = []
     testedSnakes.append(snakeData)
-    pickle.dump(testedSnakes, open("testedSnakes/testedSnakeData.pkl","wb"))
+    pickle.dump(testedSnakes, open(os.getcwd() + "/testedSnakes/testedSnakeData.pkl","wb"))
 
     sendUpdateToServer({
         "top_fitness": top_fitness,
