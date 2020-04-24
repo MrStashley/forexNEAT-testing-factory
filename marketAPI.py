@@ -662,6 +662,8 @@ class trainingMarketAPI(object):
         self.supportandResistance = self.supportandResistanceInit
         self.SRStrengths = self.SRStrengthsInit
         self.SRTouches = self.SRTouchesInit
+        self.totalProfit = 0
+        self.totalLoss = 0
         self.counters = {
             "second": self.secondStart,
             "monthly": 0,
@@ -761,11 +763,33 @@ class trainingMarketAPI(object):
         exportsDif = usaExports - eurExports
         return (gdpDif, exportsDif)
 
+    """
+        FOREX NEURAL NETWORK TO DO:
+        save tested neural networks
+        look into methods of evaluating trading strategies and how to calculate them
+        create sql database and make sure it accepts data
+
+        of course optimize and test but at that point we are ready for deployment
+        I can write the webpages and look at email alerts after deploy
+
+        SQL Database organization:
+        3 Tables:
+        current information such as the top scorer and what generation we are on and things like that
+        the data for each generation taken from training factory
+        and the data for each neural network tested
+
+
+    """
+
+
+
+
     def checkFundamentalData(self, time):
         if time[11:] == "00T00:00:00.000000000Z" :
             month = time[5:7]
             if month == "04" or month == "07" or month == "09" or month == "01":
                 useTime = time[:11] + "05T00:00:00.000000000Z"
+                print("changing fundamental data at: " + str(time))
                 self.fundamentalData = marketData.getFundamentalAnalysisData((useTime, idx))
 
 
@@ -909,6 +933,11 @@ class trainingMarketAPI(object):
             curPrice = float(self.marketData["secondData"][self.counters["second"]-1]["o"]) - (self.spread * .00001);
             self.balance -= entryPrice * self.posVolume;
             self.balance += curPrice * self.posVolume;
+            changeInMoney = (curPrice * self.posVolume) - (entryPrice* self.posVolume)
+            if (changeInMoney > 0):
+                self.totalProfit += changeInMoney
+            elif(changeInMoney < 0):
+                self.totalLoss += changeInMoney
 
     def getFitness(self):
         if self.failed:
@@ -924,7 +953,10 @@ class trainingMarketAPI(object):
             "fitness": self.getFitness(),
             "balance": self.getBalance(),
             "equity": self.getEquity(),
-            "failed": self.failed
+            "failed": self.failed,
+            "totalProfit":self.totalProfit,
+            "totalLoss": self.totalLoss
+
         };
         return results;
 

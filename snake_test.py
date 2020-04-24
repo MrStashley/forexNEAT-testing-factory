@@ -68,6 +68,8 @@ def test_snake(snake):
         equity = result["equity"];
         failed = result["failed"];
         id = result["id"];
+        totalLoss = result["totalLoss"]
+        totalProfit = result["totalProfit"]
 
         fitness_total += fitness
 
@@ -99,6 +101,9 @@ def test_snake(snake):
         "positive_fitness_decimal": positive_fitness_decimal,
         "positive_fitness_count": positive_fitness_count,
         "failed_count": failed_count,
+        "total_loss": totalLoss,
+        "total_profit": totalProfit,
+        "profitability_ratio": (totalProfit / totalLoss),
         "total": len(results)
     })
 
