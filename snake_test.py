@@ -50,7 +50,7 @@ def testing_driver():
         newData = checkIncoming()
         data.extend(newData)
         if len(data) > 0:
-            test_snake(data.pop)
+            test_snake(data.pop())
 
 def test_snake(snake):
     tester = snakeTester(snake);
