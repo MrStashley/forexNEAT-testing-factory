@@ -93,7 +93,7 @@ def getDateAhead(year,month,day,hour,minute, dayInterval):
 def getRandomDate(dayInterval):
     #returns a random date string formatted to rfc 3339 standard
     # as well as the date dayInterval days ahead
-    dayInterval = 4;
+    dayInterval = 30;
     random.seed(time.time());
     year = "20" + str(random.randrange(10,20,1));
     month = str(random.randrange(1,13,1));
@@ -149,7 +149,7 @@ class marketData(object):
         self.date = getRandomDate(self.dayInterval); #gets date for
         self.marketData = self.getAllMarketData();
         self.weekExtremes = self.calculateExtremes(self.marketData["dailyData"])
-        self.fundamentalData = self.getFundamentalAnalysisData()
+        self.fundamentalData = marketData.getFundamentalAnalysisData(self.date)
 
     def calculateExtremes(self, dataSet):
         high = float(dataSet[0]["mid"]["h"])
@@ -163,8 +163,9 @@ class marketData(object):
                 low = curLow
         return (high, low)
 
-    def getFundamentalAnalysisData(self):
-        endDate, idx = self.date
+    @staticmethod
+    def getFundamentalAnalysisData(date):
+        endDate, idx = date
         startDate = marketData.parseMonthsBack(endDate, self.dayInterval);
         quandl.ApiConfig.api_key = "kkPxNpCyfyzE6SyadrVc"
         usaExports = quandl.get("FRED/IEAXGSN",start_date = startDate[:10], end_date = endDate[:10], returns = "numpy")
@@ -762,6 +763,13 @@ class trainingMarketAPI(object):
 
     def checkFundamentalData(self, time):
         print(time)
+        if time[11:] == "00T00:00:00.000000000Z" :
+            month = time[5:7]
+            if month == "04" or month == "07" or month == "09" or month == "01":
+                useTime = time[:11] + "05T00:00:00.000000000Z"
+                self.fundamentalData = marketData.getFundamentalAnalysisData((useTime, idx))
+
+
 
 
     def getInputData(self):
