@@ -35,7 +35,7 @@ def checkIncoming():
     except:
         curData = []
     curData.extend(data)
-    pickle.dump(curData, open("testingFacilitySnakeData.pkl", "wb"))j
+    pickle.dump(curData, open("testingFacilitySnakeData.pkl", "wb"))
     return data
 
 def testing_driver():
