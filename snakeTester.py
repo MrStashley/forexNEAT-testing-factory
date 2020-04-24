@@ -54,13 +54,15 @@ class snakeTester(object):
         self.snake = snakeNN(genome,config,id)
         self.threads = []
         self.results = []
+        self.numTests = 10
 
 
     def run(self,save):
         initMarketData()
-        pool = Pool(processes = 250);
+        pool = Pool(processes = self.numTests);
         snake = self.snake
-        self.threads.append(pool.apply_async(snake.test))
+        for i in range(self.numTests):
+            self.threads.append(pool.apply_async(snake.test))
         pool.close();
         pool.join();
         for index, thread in enumerate(self.threads):
