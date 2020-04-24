@@ -1,4 +1,5 @@
 import neat
+import time
 from multiprocessing import Process, Pool
 from marketAPI import trainingMarketAPI, initMarketData
 
