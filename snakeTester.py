@@ -1,4 +1,5 @@
-import neat 
+import neat
+import multiprocessing
 
 class snakeNN(object):
 
