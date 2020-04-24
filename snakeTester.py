@@ -49,6 +49,7 @@ class snakeTester(object):
         genome = snake["genome"]
         id = snake["id"]
         self.snake = snakeNN(genome,config,id)
+        self.threads = []
         self.results = []
 
 
