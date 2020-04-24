@@ -48,7 +48,7 @@ class snakeNN(object):
 class snakeTester(object):
     def __init__(self, snake):
         print(snake)
-        config = snake["config"]
+        self.config = snake["config"]
         genome = snake["genome"]
         id = snake["id"]
         self.snake = snakeNN(genome,config,id)
@@ -65,7 +65,7 @@ class snakeTester(object):
         pool.close();
         pool.join();
         for index, thread in enumerate(self.threads):
-            self.results.append((self.threads[index].get(),snake.genome, config));
+            self.results.append((self.threads[index].get(),snake.genome, self.config));
 
     def getResults(self):
         return self.results
