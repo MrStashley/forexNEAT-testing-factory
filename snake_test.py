@@ -62,7 +62,7 @@ def test_snake(snake):
     top_fitness = 0
     bottom_fitness = 3000
     fitness_total = 0
-    for result, genomes in results:
+    for result, genome, config in results:
         fitness = result["fitness"];
         balance = result["balance"];
         equity = result["equity"];
@@ -83,13 +83,22 @@ def test_snake(snake):
     average_fitness = fitness_total / len(results)
     positive_fitness_decimal = positive_fitness_count/len(results)
 
+    snakeData = (id,genome,config)
+    try:
+        testedSnakes = pickle.load(open("testedSnakes/testedSnakeData.pkl", "rb"))
+    except:
+        testedSnakes = []
+    testedSnakes.append(snakeData)
+    pickle.dump(testedSnakes, open("testedSnakes/testedSnakeData.pkl","wb"))
+
     sendUpdateToServer({
         "top_fitness": top_fitness,
         "bottom_fitness": bottom_fitness,
         "average_fitness": average_fitness,
         "positive_fitness_decimal": positive_fitness_decimal,
         "positive_fitness_count": positive_fitness_count,
-        "failed_count": failed_count
+        "failed_count": failed_count,
+        "total": len(results)
     })
 
 if __name__ == "__main__":
