@@ -342,9 +342,8 @@ class trainingMarketAPI(object):
         diDifArray, self.pdiData,self.ndiData = trainingMarketAPI.getDI(dm,self.atrData, self.EMAWindow)
         self.adxData = trainingMarketAPI.getADX(diDifArray, self.pdiData, self.ndiData, self.EMAWindow)
 
-    @classmethod
-    def initSRTouches(cls,price):
-        SR = cls.supportandResistanceInit
+    def initSRTouches(self,price):
+        SR = self.supportandResistanceInit
         PP, S, R = SR
         touches = [0,0,0,0,0,0,0]
         S1, S2, S3 = S
@@ -356,10 +355,9 @@ class trainingMarketAPI(object):
         TS1,TS2,TS3,TR1,TR2,TR3,TP = trainingMarketAPI.listToTuple(touches)
         cls.SRTouchesInit = (TP, (TS1,TS2,TS3), (TR1,TR2,TR3))
 
-    @classmethod
-    def calculateSupportandResistance(cls, close = 0, high = 0, low = 0):
+    def calculateSupportandResistance(self, close = 0, high = 0, low = 0):
         if close == 0:
-            day = cls.marketData["dailyData"][-1]
+            day = self.marketData["dailyData"][-1]
             high = float(day["mid"]["h"])
             low = float(day["mid"]["l"])
             close = float(day["mid"]["c"])
@@ -378,12 +376,11 @@ class trainingMarketAPI(object):
 
         return (PP,(S1,S2,S3),(R1,R2,R3))
 
-    @classmethod
-    def initDailyExtremes(cls,dataset,limit):
+    def initDailyExtremes(self,dataset,limit):
         high = dataset[0]
         low = dataset[0]
         for index in range(limit):
-            cls.initSRTouches(dataset[index])
+            self.initSRTouches(dataset[index])
             if dataset[index] > high:
                 high = dataset[index]
             if dataset[index] < low:
@@ -527,6 +524,7 @@ class trainingMarketAPI(object):
                 counter += 1
         return (pdmarray,ndmarray)
 
+    @staticmethod
     def getDI(dm, atr, window):
         pdm,ndm = dm
         pdmEMA = trainingMarketAPI.ExpMovingAverage(pdm,int(window/12))
