@@ -48,7 +48,8 @@ class snakeNN(object):
 class snakeTester(object):
     def __init__(self, snake):
         print(snake)
-        self.config = snake["config"]
+        config = snake["config"]
+        self.config = config
         genome = snake["genome"]
         id = snake["id"]
         self.snake = snakeNN(genome,config,id)
