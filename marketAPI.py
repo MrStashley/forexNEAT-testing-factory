@@ -166,7 +166,7 @@ class marketData(object):
     @staticmethod
     def getFundamentalAnalysisData(date):
         endDate, idx = date
-        startDate = marketData.parseMonthsBack(endDate, self.dayInterval);
+        startDate = marketData.parseMonthsBack(endDate, 4);
         quandl.ApiConfig.api_key = "kkPxNpCyfyzE6SyadrVc"
         usaExports = quandl.get("FRED/IEAXGSN",start_date = startDate[:10], end_date = endDate[:10], returns = "numpy")
         usaGDP = quandl.get("FRED/NGDPPOT", start_date = startDate[:10], end_date = endDate[:10], returns = "numpy");
