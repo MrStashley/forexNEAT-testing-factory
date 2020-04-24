@@ -760,6 +760,9 @@ class trainingMarketAPI(object):
         exportsDif = usaExports - eurExports
         return (gdpDif, exportsDif)
 
+    def checkFundamentalData(self, time):
+        print(time)
+
 
     def getInputData(self):
         inputData = [];
@@ -767,6 +770,8 @@ class trainingMarketAPI(object):
         dayCounter = self.counters["daily"];
         weekCounter = self.counters["weekly"];
         monthCounter = self.counters["monthly"];
+
+        self.checkFundamentalData(self.marketData["secondData"][secondCounter]["time"])
 
         secondOpen = float(self.marketData["secondData"][secondCounter]["o"]);
         secondClose = secondOpen - (self.spread * .00001);
