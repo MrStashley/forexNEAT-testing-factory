@@ -930,7 +930,7 @@ class trainingMarketAPI(object):
             if (changeInMoney > 0):
                 self.totalProfit += changeInMoney
             elif(changeInMoney < 0):
-                self.totalLoss += changeInMoney
+                self.totalLoss += abs(changeInMoney)
 
     def getFitness(self):
         if self.failed:
