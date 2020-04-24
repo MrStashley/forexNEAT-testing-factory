@@ -762,7 +762,6 @@ class trainingMarketAPI(object):
         return (gdpDif, exportsDif)
 
     def checkFundamentalData(self, time):
-        print(time)
         if time[11:] == "00T00:00:00.000000000Z" :
             month = time[5:7]
             if month == "04" or month == "07" or month == "09" or month == "01":
