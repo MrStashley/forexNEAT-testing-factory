@@ -3,7 +3,7 @@ import json
 import pickle
 import os
 import neat
-from snakeTester import snakeTeste, snakeNN
+from snakeTester import snakeTester, snakeNN
 
 def sendUpdateToServer(info):
     dataString = json.dumps(info)
