@@ -65,7 +65,7 @@ class snakeTester(object):
         pool.close();
         pool.join();
         for index, thread in enumerate(self.threads):
-            self.results.append((self.threads[index].get(),snake.genome, snake.config));
+            self.results.append((self.threads[index].get(),snake.genome, config));
 
     def getResults(self):
         return self.results
