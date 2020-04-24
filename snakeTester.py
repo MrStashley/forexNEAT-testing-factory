@@ -1,5 +1,6 @@
 import neat
 import time
+import numpy as np
 from multiprocessing import Process, Pool
 from marketAPI import trainingMarketAPI, initMarketData
 
