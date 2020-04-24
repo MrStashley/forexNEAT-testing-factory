@@ -354,7 +354,7 @@ class trainingMarketAPI(object):
             if price == point:
                 touches[index] += 1
         TS1,TS2,TS3,TR1,TR2,TR3,TP = trainingMarketAPI.listToTuple(touches)
-        cls.SRTouchesInit = (TP, (TS1,TS2,TS3), (TR1,TR2,TR3))
+        self.SRTouchesInit = (TP, (TS1,TS2,TS3), (TR1,TR2,TR3))
 
     def calculateSupportandResistance(self, close = 0, high = 0, low = 0):
         if close == 0:
