@@ -58,7 +58,6 @@ class snakeTester(object):
 
 
     def run(self,save):
-        initMarketData()
         pool = Pool(processes = self.numTests);
         snake = self.snake
         for i in range(self.numTests):

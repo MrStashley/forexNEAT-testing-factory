@@ -123,8 +123,7 @@ def initMarketData():
 
     print("initializing marketData");
     genData = marketData(); #initializes object that gets data for a generation
-    trainingMarketAPI.initMarketData(genData); #gives the market data to
-    #the trainingMarketAPI object
+    return genData #returns so it can be used later by the trainingMarketAPI object
 
 def debug(vars,pause = True):
     for key in vars:
@@ -326,23 +325,22 @@ class trainingMarketAPI(object):
         toReturn = [(float(point["o"])-spread) for point in cls.marketData["secondData"]]
         return toReturn
 
-    @classmethod
-    def initMarketData(cls,marketDataObject):
-        cls.secondStart = (cls.EMAWindow * 2) - 1
-        cls.marketData = marketDataObject.marketData;
-        cls.weekExtremesInit = marketDataObject.weekExtremes
-        cls.fundamentalData = marketDataObject.fundamentalData
-        cls.supportandResistanceInit = cls.calculateSupportandResistance()
-        cls.SRTouchesInit = (0,(0,0,0),(0,0,0))
-        cls.SRStrengthsInit = (0,(0,0,0),(0,0,0))
-        secondDataArray = cls.getSecondDataArray()
-        cls.dayExtremesInit = cls.initDailyExtremes(secondDataArray, cls.secondStart)
-        cls.emaData = trainingMarketAPI.ExpMovingAverage(secondDataArray, cls.EMAWindow);
-        cls.macdData = trainingMarketAPI.getMACD(secondDataArray, cls.emaData,cls.EMAWindow)
-        hl, cls.atrData = trainingMarketAPI.getATR(secondDataArray, cls.EMAWindow)
-        dm = cls.getDM(hl)
-        diDifArray, cls.pdiData,cls.ndiData = trainingMarketAPI.getDI(dm,cls.atrData, cls.EMAWindow)
-        cls.adxData = trainingMarketAPI.getADX(diDifArray, cls.pdiData, cls.ndiData, cls.EMAWindow)
+    def initMarketData(self,marketDataObject):
+        self.secondStart = (self.EMAWindow * 2) - 1
+        self.marketData = marketDataObject.marketData;
+        self.weekExtremesInit = marketDataObject.weekExtremes
+        self.fundamentalData = marketDataObject.fundamentalData
+        self.supportandResistanceInit = self.calculateSupportandResistance()
+        self.SRTouchesInit = (0,(0,0,0),(0,0,0))
+        self.SRStrengthsInit = (0,(0,0,0),(0,0,0))
+        secondDataArray = self.getSecondDataArray()
+        self.dayExtremesInit = self.initDailyExtremes(secondDataArray, self.secondStart)
+        self.emaData = trainingMarketAPI.ExpMovingAverage(secondDataArray, self.EMAWindow);
+        self.macdData = trainingMarketAPI.getMACD(secondDataArray, self.emaData,self.EMAWindow)
+        hl, self.atrData = trainingMarketAPI.getATR(secondDataArray, self.EMAWindow)
+        dm = self.getDM(hl)
+        diDifArray, self.pdiData,self.ndiData = trainingMarketAPI.getDI(dm,self.atrData, self.EMAWindow)
+        self.adxData = trainingMarketAPI.getADX(diDifArray, self.pdiData, self.ndiData, self.EMAWindow)
 
     @classmethod
     def initSRTouches(cls,price):
@@ -652,6 +650,8 @@ class trainingMarketAPI(object):
         return(l for l in list)
 
     def __init__(self):
+        genData = initMarketData()
+        self.initMarketData(genData)
         self.failed = False;
         self.balance = self.equity = (self.startingBalance * self.leverage);
         self.started = False;
