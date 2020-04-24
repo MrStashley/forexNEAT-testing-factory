@@ -1,6 +1,6 @@
 import neat
 from multiprocessing import Process, Pool
-from marketAPI import trainingMarketAPI
+from marketAPI import trainingMarketAPI, initMarketData
 
 class snakeNN(object):
 
@@ -55,6 +55,7 @@ class snakeTester(object):
 
 
     def run(self,save):
+        initMarketData()
         pool = Pool(processes = 250);
         snake = self.snake
         self.threads.append(pool.apply_async(snake.test))
