@@ -664,6 +664,9 @@ class trainingMarketAPI(object):
         self.SRTouches = self.SRTouchesInit
         self.totalProfit = 0
         self.totalLoss = 0
+        self.maxEquity = 0
+        self.minEquity = 1000000
+        self.maxDrawdown = 0
         self.counters = {
             "second": self.secondStart,
             "monthly": 0,
@@ -762,27 +765,6 @@ class trainingMarketAPI(object):
         gdpDif = usaGDP - eurGDP
         exportsDif = usaExports - eurExports
         return (gdpDif, exportsDif)
-
-    """
-        FOREX NEURAL NETWORK TO DO:
-        save tested neural networks
-        look into methods of evaluating trading strategies and how to calculate them
-        create sql database and make sure it accepts data
-
-        of course optimize and test but at that point we are ready for deployment
-        I can write the webpages and look at email alerts after deploy
-
-        SQL Database organization:
-        3 Tables:
-        current information such as the top scorer and what generation we are on and things like that
-        the data for each generation taken from training factory
-        and the data for each neural network tested
-
-
-    """
-
-
-
 
     def checkFundamentalData(self, time):
         if time[11:] == "00T00:00:00.000000000Z" :
@@ -923,6 +905,17 @@ class trainingMarketAPI(object):
             self.failed = True;
             self.started = False;
 
+        if self.equity < self.minEquity:
+            self.minEquity = self.equity
+        if self.equity > self.maxEquity:
+            self.maxEquity = self.equity
+            drawdown = ((self.maxEquity - self.minEquity) / self.maxEquity)
+            if drawdown > self.maxDrawdown:
+                self.maxDrawdown = drawdown
+            self.minEquity = 1000000 #important to note here that min equity is
+            #not minimum equity over the entire run, just the lowest point in the
+            #current trough
+
     def openPosition(self):
         self.positions.append(float(self.marketData["secondData"][self.counters["second"]-1]["o"]));
         #print("Opening a position");
@@ -955,8 +948,8 @@ class trainingMarketAPI(object):
             "equity": self.getEquity(),
             "failed": self.failed,
             "totalProfit":self.totalProfit,
-            "totalLoss": self.totalLoss
-
+            "totalLoss": self.totalLoss,
+            "max_drawdown": self.maxDrawdown
         };
         return results;
 

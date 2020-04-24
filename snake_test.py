@@ -62,6 +62,18 @@ def test_snake(snake):
     top_fitness = 0
     bottom_fitness = 3000
     fitness_total = 0
+    totalLoss_total = 0
+    totalProfit_total = 0
+    profitability_ratio_total = 0
+    top_totalProfit = 0
+    bottom_totalProfit = 500000
+    top_totalLoss = 0
+    bottom_totalLoss = 3000
+    top_profitability_ratio = 0
+    bottom_profitability_ratio = 3000
+    total_max_drawdown = 0
+    top_max_drawdown = 0
+    bottom_max_drawdown = 3000
     for result, genome, config in results:
         fitness = result["fitness"];
         balance = result["balance"];
@@ -70,6 +82,36 @@ def test_snake(snake):
         id = result["id"];
         totalLoss = result["totalLoss"]
         totalProfit = result["totalProfit"]
+        max_drawdown = result["max_drawdown"]
+
+        total_max_drawdown += max_drawdown
+
+        if max_drawdown > top_max_drawdown:
+            top_max_drawdown = max_drawdown
+        if max_drawdown < bottom_max_drawdown:
+            bottom_max_drawdown = max_drawdown
+
+        if totalLoss == 0:
+            profitability_ratio = totalProfit
+        else:
+            profitability_ratio = (totalProfit / totalLoss)
+
+        totalProfit_total += totalProfit
+        totalLoss_total += totalLoss
+        profitability_ratio_total += profitability_ratio
+
+        if totalLoss > top_totalLoss:
+            top_totalLoss = totalLoss
+        if totalLoss < bottom_totalLoss:
+            bottom_totalLoss = totalLoss
+        if totalProfit > top_totalProfit:
+            top_totalProfit = totalProfit
+        if totalProfit < bottom_totalProfit:
+            bottom_totalProfit = totalProfit
+        if profitability_ratio > top_profitability_ratio:
+            top_profitability_ratio = profitability_ratio
+        if profitability_ratio < bottom_profitability_ratio:
+            bottom_profitability_ratio = profitability_ratio
 
         fitness_total += fitness
 
@@ -82,8 +124,16 @@ def test_snake(snake):
         if fitness < bottom_fitness:
             bottom_fitness = fitness
 
-    average_fitness = fitness_total / len(results)
-    positive_fitness_decimal = positive_fitness_count/len(results)
+    total = len(results)
+
+    average_fitness = fitness_total / total
+    positive_fitness_decimal = positive_fitness_count / total
+
+    average_total_loss = totalLoss_total / total
+    average_total_profit = totalProfit_total / total
+    average_profitability_ratio = profitability_ratio_total / total
+
+    average_max_drawdown = total_max_drawdown / total
 
     snakeData = (id,genome,config)
     try:
@@ -101,10 +151,19 @@ def test_snake(snake):
         "positive_fitness_decimal": positive_fitness_decimal,
         "positive_fitness_count": positive_fitness_count,
         "failed_count": failed_count,
-        "total_loss": totalLoss,
-        "total_profit": totalProfit,
-        "profitability_ratio": (totalProfit / totalLoss),
-        "total": len(results)
+        "average_total_loss": average_total_loss,
+        "average_total_profit": average_total_profit,
+        "average_profitability_ratio": average_profitability_ratio,
+        "top_total_loss": top_totalLoss,
+        "top_total_profit": top_totalProfit,
+        "top_profitability_ratio": top_profitability_ratio,
+        "bottom_total_loss": bottom_totalLoss,
+        "bottom_total_profit": bottom_totalProfit,
+        "bottom_profitability_ratio": bottom_profitability_ratio,
+        "average_max_drawdown": average_max_drawdown,
+        "top_max_drawdown": top_max_drawdown,
+        "bottom_max_drawdown": bottom_max_drawdown,
+        "total": total
     })
 
 if __name__ == "__main__":
