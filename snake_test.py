@@ -74,7 +74,7 @@ def test_snake(snake):
     total_max_drawdown = 0
     top_max_drawdown = 0
     bottom_max_drawdown = 3000
-    balance-equity_disparity_total = 0
+    balance_equity_disparity_total = 0
     for result, genome, config in results:
         fitness = result["fitness"];
         balance = result["balance"];
@@ -85,8 +85,8 @@ def test_snake(snake):
         totalProfit = result["totalProfit"]
         max_drawdown = result["max_drawdown"]
 
-        balance-equity_disparity = equity-balance
-        balance-equity_disparity_total += balance-equity_disparity
+        balance_equity_disparity = equity-balance
+        balance_equity_disparity_total += balance_equity_disparity
 
         total_max_drawdown += max_drawdown
 
@@ -139,7 +139,7 @@ def test_snake(snake):
 
     average_max_drawdown = total_max_drawdown / total
 
-    average_balance-equity_disparity = balance-equity_disparity_total / total
+    average_balance_equity_disparity = balance_equity_disparity_total / total
 
     snakeData = (id,genome,config)
     try:
@@ -169,7 +169,7 @@ def test_snake(snake):
         "average_max_drawdown": average_max_drawdown,
         "top_max_drawdown": top_max_drawdown,
         "bottom_max_drawdown": bottom_max_drawdown,
-        "average_balance-equity_disparity": average_balance-equity_disparity,
+        "average_balance_equity_disparity": average_balance_equity_disparity,
         "total": total
     })
 
