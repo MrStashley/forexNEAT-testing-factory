@@ -1,3 +1,5 @@
+import neat 
+
 class snakeNN(object):
 
     def __init__(self,genome, config, id):
