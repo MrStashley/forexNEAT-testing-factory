@@ -648,8 +648,7 @@ class trainingMarketAPI(object):
     def listToTuple(list):
         return(l for l in list)
 
-    def __init__(self):
-        genData = initMarketData()
+    def __init__(self,genData):
         self.initMarketData(genData)
         self.failed = False;
         self.balance = self.equity = (self.startingBalance * self.leverage);

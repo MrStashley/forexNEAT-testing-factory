@@ -18,10 +18,10 @@ class snakeNN(object):
         output = [ (1/(1 + np.exp(-i))) for i in output ]
         return output.index(max(output));
 
-    def test(self):
+    def test(self, genData):
         #runs the NN in a test environment for the purpose of evaluating
         #fitness for training
-        marketAPI = trainingMarketAPI();
+        marketAPI = trainingMarketAPI(genData);
         marketAPI.start()
 
         startTime = time.time()
@@ -61,7 +61,7 @@ class snakeTester(object):
         pool = Pool(processes = self.numTests);
         snake = self.snake
         for i in range(self.numTests):
-            self.threads.append(pool.apply_async(snake.test))
+            self.threads.append(pool.apply_async(snake.test,(initMarketData(),)))
         pool.close();
         pool.join();
         for index, thread in enumerate(self.threads):
