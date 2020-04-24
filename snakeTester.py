@@ -1,5 +1,5 @@
 import neat
-import multiprocessing
+from multiprocessing import Process, Pool
 
 class snakeNN(object):
 
