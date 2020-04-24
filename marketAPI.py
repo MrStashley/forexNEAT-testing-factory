@@ -93,7 +93,7 @@ def getDateAhead(year,month,day,hour,minute, dayInterval):
 def getRandomDate(dayInterval):
     #returns a random date string formatted to rfc 3339 standard
     # as well as the date dayInterval days ahead
-    dayInterval = 30;
+    dayInterval = 15;
     random.seed(time.time());
     year = "20" + str(random.randrange(10,20,1));
     month = str(random.randrange(1,13,1));
