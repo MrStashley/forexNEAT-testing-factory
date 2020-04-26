@@ -19,7 +19,10 @@ def checkIncoming():
     for file in files:
         if file.is_file() == False:
             continue
-        curFiledata = pickle.load(open(file.path,"rb"))
+        try:
+            curFiledata = pickle.load(open(file.path,"rb"))
+        except:
+            pass
         config = curFiledata["config"]
         winners = curFiledata["winners"]
         for winner in winners:
@@ -50,7 +53,13 @@ def testing_driver():
         newData = checkIncoming()
         data.extend(newData)
         if len(data) > 0:
-            test_snake(data.pop())
+            run = True
+            while run:
+                try:
+                    test_snake(data.pop())
+                    run = False
+                except Exception as e:
+                    print(e)
 
 def test_snake(snake):
     tester = snakeTester(snake);

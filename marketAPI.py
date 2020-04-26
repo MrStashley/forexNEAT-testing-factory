@@ -141,7 +141,7 @@ class marketData(object):
     };
 
     def __init__(self):
-        self.dayInterval = 18 # the generation will run this many days
+        self.dayInterval = 15 # the generation will run this many days
         self.access_token = open("oanda_api_key.txt", "r").readline()[:-1];
         self.instrument = "EUR_USD";
         self.client = oandapyV20.API(access_token=self.access_token);
