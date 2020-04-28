@@ -55,7 +55,7 @@ class snakeTester(object):
         self.snake = snakeNN(genome,config,id)
         self.threads = []
         self.results = []
-        self.numTests = 10
+        self.numTests = 250
 
 
     def run(self,save):
