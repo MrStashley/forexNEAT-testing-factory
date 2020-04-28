@@ -21,8 +21,9 @@ def checkIncoming():
             continue
         try:
             curFiledata = pickle.load(open(file.path,"rb"))
-        except:
-            pass
+        except Exception as e:
+            print(e);
+            continue;
         config = curFiledata["config"]
         winners = curFiledata["winners"]
         for winner in winners:
