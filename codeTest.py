@@ -53,7 +53,7 @@ def readtoTestingFacilityTest():
     pickle.dump(data, open("testingFacilitySnakeData.pkl", "wb"))
 
 def main():
-    readtoTestingFacilityTest()
+    sendUpdateToServerTest()
 
 
 if __name__ == "__main__":
