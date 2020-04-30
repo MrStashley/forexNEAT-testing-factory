@@ -54,10 +54,11 @@ def testing_driver():
         newData = checkIncoming()
         data.extend(newData)
         if len(data) > 0:
+            cur_test = data.pop()
             run2 = True
             while run2:
                 try:
-                    test_snake(data.pop())
+                    test_snake(cur_test)
                     run2 = False
                 except Exception as e:
                     print(e)

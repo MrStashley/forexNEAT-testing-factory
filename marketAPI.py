@@ -205,7 +205,7 @@ class marketData(object):
                 break;
             else:
                 print("running again");
-                self.date = getRandomDate();
+                self.date = getRandomDate(self.dayInterval);
 
         return {
             "secondData": [{
