@@ -4,6 +4,9 @@ import pickle
 import os
 import neat
 from snakeTester import snakeTester, snakeNN
+import paramiko
+from paramiko import SSHClient
+from scp import SCPClient
 
 def sendUpdateToServer(info):
     dataString = json.dumps(info)
