@@ -14,7 +14,7 @@ def sendUpdateToServer(info):
 def checkIncoming():
     filename = "testingFacilitySnakeData.pkl"
     data = []
-    files = os.scandir("/home/ec2-user/forexNEAT-testing-factory/toTestingFactory")
+    files = os.scandir("/home/clashley/forexNEAT-testing-factory/toTestingFactory")
 
     for file in files:
         if file.is_file() == False:
