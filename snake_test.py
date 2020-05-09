@@ -30,7 +30,7 @@ def checkIncoming():
     key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
     ssh.connect(exIP, pkey = key, username = user)
     scp = SCPClient(ssh.get_transport())
-    scp.get(remote_path = "/home/clashley/toTestingFactory"
+    scp.get(remote_path = "/home/clashley/toTestingFactory",
         local_path = "/home/clashley/forexNEAT-testing-factory", recursive = True)
 
     filename = "testingFacilitySnakeData.pkl"
