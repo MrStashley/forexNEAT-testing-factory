@@ -11,7 +11,28 @@ def sendUpdateToServer(info):
     data = {"info": dataString}
     r = requests.post(updateURL, data = data)
 
+def sendToMiddleMan():
+    exIP = "35.223.42.115"
+    user = "clashley"
+    ssh = SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
+    ssh.connect(exIP, pkey = key, username = user)
+    scp = SCPClient(ssh.get_transport())
+    scp.put("testedSnakeData.pkl", remote_path = "/home/clashley/")
+    scp.close()
+
 def checkIncoming():
+    exIP = "35.223.42.115"
+    user = "clashley"
+    ssh = SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
+    ssh.connect(exIP, pkey = key, username = user)
+    scp = SCPClient(ssh.get_transport())
+    scp.get(remote_path = "/home/clashley/toTestingFactory"
+        local_path = "/home/clashley/forexNEAT-testing-factory", recursive = True)
+
     filename = "testingFacilitySnakeData.pkl"
     data = []
     files = os.scandir("/home/clashley/forexNEAT-testing-factory/toTestingFactory")
@@ -41,6 +62,9 @@ def checkIncoming():
         curData = []
     curData.extend(data)
     pickle.dump(curData, open("testingFacilitySnakeData.pkl", "wb"))
+    scp.put("/home/clashley/forexNEAT-testing-factory/toTestingFactory",
+        remote_path = "/home/clashley", recursive = True)
+    scp.close()
     return data
 
 def testing_driver():
@@ -159,6 +183,7 @@ def test_snake(snake):
         testedSnakes = []
     testedSnakes.append(snakeData)
     pickle.dump(testedSnakes, open("testedSnakeData.pkl","wb"))
+    sendToMiddleMan()
 
     sendUpdateToServer({
         "id": id,
