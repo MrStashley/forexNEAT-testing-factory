@@ -8,6 +8,11 @@ import paramiko
 from paramiko import SSHClient
 from scp import SCPClient
 
+def writeErrorLog(e):
+    URL = "https://forexnntracker.herokuapp.com/errorlog"
+    data = {"error": str(e)}
+    r = requests.post(URL, data = data)
+
 def sendUpdateToServer(info):
     dataString = json.dumps(info)
     updateURL = "https://forexnntracker.herokuapp.com/testingfactoryupdate"
@@ -19,7 +24,7 @@ def sendToMiddleMan():
     user = "clashley"
     ssh = SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
+    key = paramiko.RSAKey.from_private_key_file("/home/peenis/.ssh/id_rsa")
     ssh.connect(exIP, pkey = key, username = user)
     scp = SCPClient(ssh.get_transport())
     scp.put("testedSnakeData.pkl", remote_path = "/home/clashley/")
@@ -30,15 +35,15 @@ def checkIncoming():
     user = "clashley"
     ssh = SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
+    key = paramiko.RSAKey.from_private_key_file("/home/peenis/.ssh/id_rsa")
     ssh.connect(exIP, pkey = key, username = user)
     scp = SCPClient(ssh.get_transport())
     scp.get(remote_path = "/home/clashley/toTestingFactory",
-        local_path = "/home/clashley/forexNEAT-testing-factory", recursive = True)
+        local_path = "/home/peenis/forexNEAT-testing-factory", recursive = True)
 
     filename = "testingFacilitySnakeData.pkl"
     data = []
-    files = os.scandir("/home/clashley/forexNEAT-testing-factory/toTestingFactory")
+    files = os.scandir("/home/peenis/forexNEAT-testing-factory/toTestingFactory")
 
     for file in files:
         if file.is_file() == False:
@@ -65,7 +70,7 @@ def checkIncoming():
         curData = []
     curData.extend(data)
     pickle.dump(curData, open("testingFacilitySnakeData.pkl", "wb"))
-    scp.put("/home/clashley/forexNEAT-testing-factory/toTestingFactory",
+    scp.put("/home/peenis/forexNEAT-testing-factory/toTestingFactory",
         remote_path = "/home/clashley", recursive = True)
     scp.close()
     return data
@@ -88,7 +93,7 @@ def testing_driver():
                     test_snake(cur_test)
                     run2 = False
                 except Exception as e:
-                    print(e)
+                    writeErrorLog(e)
 
 def test_snake(snake):
     tester = snakeTester(snake);
@@ -213,4 +218,7 @@ def test_snake(snake):
     })
 
 if __name__ == "__main__":
-    testing_driver()
+    try:
+        testing_driver()
+    except Exception as e:
+        writeErrorLog(e)
