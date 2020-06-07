@@ -3,6 +3,7 @@ import json
 import pickle
 import os
 import neat
+import time
 from snakeTester import snakeTester, snakeNN
 import paramiko
 from paramiko import SSHClient
@@ -38,9 +39,11 @@ def checkIncoming():
     key = paramiko.RSAKey.from_private_key_file("/home/peenis/.ssh/id_rsa")
     ssh.connect(exIP, pkey = key, username = user)
     scp = SCPClient(ssh.get_transport())
-    scp.get(remote_path = "/home/clashley/toTestingFactory",
-        local_path = "/home/peenis/forexNEAT-testing-factory", recursive = True)
-
+    try:
+        scp.get(remote_path = "/home/clashley/toTestingFactory",
+            local_path = "/home/peenis/forexNEAT-testing-factory", recursive = True)
+    except Exception as e:
+        time.sleep(3);
     filename = "testingFacilitySnakeData.pkl"
     data = []
     files = os.scandir("/home/peenis/forexNEAT-testing-factory/toTestingFactory")
