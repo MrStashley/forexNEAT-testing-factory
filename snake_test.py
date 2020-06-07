@@ -43,6 +43,7 @@ def checkIncoming():
         scp.get(remote_path = "/home/clashley/toTestingFactory",
             local_path = "/home/peenis/forexNEAT-testing-factory", recursive = True)
     except Exception as e:
+        print("Exception happened in Check Incoming")
         time.sleep(3);
     filename = "testingFacilitySnakeData.pkl"
     data = []
