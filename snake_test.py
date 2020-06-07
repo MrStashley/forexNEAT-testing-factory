@@ -32,6 +32,7 @@ def sendToMiddleMan():
     scp.close()
 
 def checkIncoming():
+    time.sleep(1)
     exIP = "35.223.42.115"
     user = "clashley"
     ssh = SSHClient()
