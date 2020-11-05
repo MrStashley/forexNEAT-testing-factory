@@ -25,7 +25,7 @@ def sendToMiddleMan():
     user = "clashley"
     ssh = SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    key = paramiko.RSAKey.from_private_key_file("/home/peenis/.ssh/id_rsa")
+    key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
     ssh.connect(exIP, pkey = key, username = user)
     scp = SCPClient(ssh.get_transport())
     scp.put("testedSnakeData.pkl", remote_path = "/home/clashley/")
@@ -37,7 +37,7 @@ def checkIncoming():
     user = "clashley"
     ssh = SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    key = paramiko.RSAKey.from_private_key_file("/home/peenis/.ssh/id_rsa")
+    key = paramiko.RSAKey.from_private_key_file("/home/clashley/.ssh/id_rsa")
     ssh.connect(exIP, pkey = key, username = user)
     scp = SCPClient(ssh.get_transport())
     try:
@@ -48,7 +48,7 @@ def checkIncoming():
         time.sleep(3);
     filename = "testingFacilitySnakeData.pkl"
     data = []
-    files = os.scandir("/home/peenis/forexNEAT-testing-factory/toTestingFactory")
+    files = os.scandir("/home/clashley/forexNEAT-testing-factory/toTestingFactory")
 
     for file in files:
         if file.is_file() == False:
@@ -75,7 +75,7 @@ def checkIncoming():
         curData = []
     curData.extend(data)
     pickle.dump(curData, open("testingFacilitySnakeData.pkl", "wb"))
-    scp.put("/home/peenis/forexNEAT-testing-factory/toTestingFactory",
+    scp.put("/home/clashley/forexNEAT-testing-factory/toTestingFactory",
         remote_path = "/home/clashley", recursive = True)
     scp.close()
     return data
