@@ -42,7 +42,7 @@ def checkIncoming():
     scp = SCPClient(ssh.get_transport())
     try:
         scp.get(remote_path = "/home/clashley/toTestingFactory",
-            local_path = "/home/peenis/forexNEAT-testing-factory", recursive = True)
+            local_path = "/home/clashley/forexNEAT-testing-factory", recursive = True)
     except Exception as e:
         print("Exception happened in Check Incoming")
         time.sleep(3);
